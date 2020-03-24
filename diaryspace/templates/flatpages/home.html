@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %} DiarySpace {% endblock %}
+{% block css %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block body %}
+    <body class="text-center">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <header class="masthead mb-auto">
+            <div class="inner">
+                <h3 class="masthead-brand">
+                    {%  include 'logo.html' %}
+                </h3>
+                <nav class="nav nav-masthead justify-content-center">
+                    <a class="nav-link active" href="#">Главная</a>
+                    <a class="nav-link" href="mailto:andrey.mu11@yandex.ru">Связаться</a>
+                    <a class="nav-link" href="#">Войти</a>
+                </nav>
+            </div>
+        </header>
+
+        <main role="main" class="inner cover">
+            <h1 class="cover-heading">Современный электронный дневник</h1>
+            <p class="lead">Всё для вашего удобства</p>
+            <p class="lead">
+                <a href="#" class="btn btn-lg btn-secondary">Попробовать</a>
+            </p>
+        </main>
+
+        <footer class="mastfoot mt-auto">
+            <div class="inner">
+                <p>Если вы ученик, родитель или учитель, <a href="https://getbootstrap.com/">войдите</a>
+            </div>
+        </footer>
+    </div>
+    </body>
+{% endblock %}
