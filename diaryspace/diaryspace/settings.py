@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     "django.contrib.flatpages",
     "users.apps.UsersConfig",
-    "management.apps.ManagementConfig"
+    "schools.apps.SchoolsConfig"
 ]
 
 MIDDLEWARE = [
@@ -125,6 +125,8 @@ USE_L10N = True
 
 USE_TZ = True
 
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
