@@ -17,7 +17,7 @@
                 <nav class="nav nav-masthead justify-content-center">
                     <a class="nav-link active" href="#">Главная</a>
                     <a class="nav-link" href="mailto:andrey.mu11@yandex.ru">Связаться</a>
-                    <a class="nav-link" href="#">Войти</a>
+                    <a class="nav-link" href="{% url 'login' %}">Войти</a>
                 </nav>
             </div>
         </header>
@@ -32,7 +32,7 @@
 
         <footer class="mastfoot mt-auto">
             <div class="inner">
-                <p>Если вы ученик, родитель или учитель, <a href="https://getbootstrap.com/">войдите</a>
+                <p>Если вы ученик, родитель или учитель, <a href="{% url 'login' %}">войдите</a>
             </div>
         </footer>
     </div>

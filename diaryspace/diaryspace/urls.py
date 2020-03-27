@@ -21,5 +21,6 @@ urlpatterns = [
     path("", views.flatpage, {"url": ""}, name="home"),
     path('admin/', admin.site.urls),
     path("auth/", include("users.urls")),
-    path('schools/', include("schools.urls"))
+    path("auth/", include("django.contrib.auth.urls")),
+    path('schools/', include("schools.urls")),
 ]
