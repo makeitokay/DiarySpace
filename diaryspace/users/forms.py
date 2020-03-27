@@ -1,6 +1,6 @@
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm
 from django.core.mail import send_mail
+from django.contrib.auth.password_validation import validate_password
 
 from users.models import User
 
@@ -21,6 +21,7 @@ class SchoolAdminCreationForm(forms.Form):
 
     def clean(self):
         password = self.cleaned_data["password"]
+        validate_password(password)
         password_again = self.cleaned_data["password_again"]
         if password != password_again:
             raise forms.ValidationError("Пароли не совпадают")
