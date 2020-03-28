@@ -17,8 +17,11 @@ from django.contrib import admin
 from django.contrib.flatpages import views
 from django.urls import path, include
 
+from users.views import RedirectView
+
 urlpatterns = [
-    path("", views.flatpage, {"url": ""}, name="home"),
+    path("", views.flatpage, {"url": ""}, name="index"),
+    path('home/', RedirectView.as_view(), name='home'),
     path('admin/', admin.site.urls),
     path("auth/", include("users.urls")),
     path("auth/", include("django.contrib.auth.urls")),

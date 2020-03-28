@@ -68,10 +68,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.email
 
     @property
-    def is_staff(self):
-        return self.is_admin
-
-    @property
     def role(self):
         if self.groups.exists():
             return self.groups.first().name

@@ -1,3 +1,5 @@
+from django.shortcuts import redirect
+from django.views import View
 from django.views.generic import FormView
 
 from schools.models import School
@@ -39,3 +41,13 @@ class SchoolAdminCreationView(FormView):
         form.send_registration_mail()
 
         return super().form_valid(form)
+
+
+class RedirectView(View):
+    def get(self, request):
+        user = request.user
+        if user.is_admin:
+            return redirect('/admin')
+        role = user.role
+        if role == 'SchoolAdmin':
+            return redirect('announcements', school_id=user.school_id)
