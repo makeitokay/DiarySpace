@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 
+{% load static %}
+
 {% block title %} DiarySpace {% endblock %}
 {% block css %}
-    {% load static %}
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
 {% endblock %}
 
@@ -12,7 +13,7 @@
         <header class="masthead mb-auto">
             <div class="inner">
                 <h3 class="masthead-brand">
-                    {%  include 'logo.html' %}
+                    {% include 'logo.html' %}
                 </h3>
                 <nav class="nav nav-masthead justify-content-center">
                     <a class="nav-link active" href="#">Главная</a>
