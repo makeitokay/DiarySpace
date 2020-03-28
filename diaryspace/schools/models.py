@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import Group
 from diaryspace.settings import AUTH_USER_MODEL
 
 
@@ -41,3 +41,12 @@ class Schedule(models.Model):
     school = models.ForeignKey(School, on_delete=models.CASCADE, related_name="schedule")
     teacher = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name="schedule")
     grade = models.ForeignKey(Grade, on_delete=models.CASCADE, related_name="schedule")
+
+
+class Announcement(models.Model):
+    school = models.ForeignKey(School, on_delete=models.CASCADE, related_name="announcements")
+    author = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name="announcements")
+    title = models.CharField(max_length=100)
+    text = models.TextField()
+    date = models.DateTimeField(auto_now_add=True)
+    groups = models.ManyToManyField(Group) # groups of users who can see the announcement

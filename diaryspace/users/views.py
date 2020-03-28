@@ -50,4 +50,4 @@ class RedirectView(View):
             return redirect('/admin')
         role = user.role
         if role == 'SchoolAdmin':
-            return redirect('announcements', school_id=user.school_id)
+            return redirect('announcements')

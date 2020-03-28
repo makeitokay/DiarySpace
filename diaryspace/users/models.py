@@ -10,7 +10,7 @@ from schools.models import School, Grade, Subject
 
 class UserManager(BaseUserManager):
     def create_user(
-        self, email, password, school_id=None, name="", surname="", patronymic=""
+            self, email, password, school_id=None, name="", surname="", patronymic="", is_active=True
     ):
         if not email:
             raise ValueError("Email is a required field")
@@ -21,6 +21,7 @@ class UserManager(BaseUserManager):
             name=name,
             surname=surname,
             patronymic=patronymic,
+            is_active=is_active,
         )
         user.set_password(password)
 
@@ -28,21 +29,19 @@ class UserManager(BaseUserManager):
         return user
 
     def create_superuser(self, email, password):
-        user = self.create_user(email, password=password,)
+        user = self.create_user(email, password=password, )
         user.is_admin = True
         user.is_superuser = True
         user.save(using=self._db)
         return user
 
     def create_school_admin(
-        self, email, password, name, surname, patronymic, school_id
+            self, email, password, name, surname, patronymic, school_id
     ):
-        user = self.create_user(email, password, school_id, name, surname, patronymic)
+        user = self.create_user(email, password, school_id, name, surname, patronymic, False)
         group = Group.objects.get(name="SchoolAdmin")
         user.groups.add(group)
         user.save(using=self._db)
-
-        SchoolAdmin.objects.create(user=user)
 
         return user
 
@@ -68,6 +67,10 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.email
 
     @property
+    def is_staff(self):
+        return self.is_admin
+
+    @property
     def role(self):
         if self.groups.exists():
             return self.groups.first().name
@@ -77,16 +80,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 class ApprovedSchoolAdminManager(models.Manager):
     def get_approved(self):
         return super().get_queryset().filter(request_approved=True)
-
-
-class SchoolAdmin(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    request_approved = models.BooleanField(default=False)
-
-    objects = ApprovedSchoolAdminManager()
-
-    def __str__(self):
-        return str(self.user)
 
 
 class Parent(models.Model):

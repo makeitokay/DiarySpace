@@ -3,7 +3,7 @@ from django.contrib.auth.models import Permission
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django import forms
 
-from .models import User, SchoolAdmin
+from .models import User
 
 
 class UserChangeForm(forms.ModelForm):
@@ -41,7 +41,7 @@ class UserAdmin(BaseUserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
     list_display = ("email", "name", "surname", "patronymic")
-    list_filter = ("is_admin", "groups__name")
+    list_filter = ("is_admin", "groups__name", "is_active")
     search_fields = ("email",)
     ordering = ("email",)
     filter_horizontal = ()
@@ -50,6 +50,7 @@ class UserAdmin(BaseUserAdmin):
         (None, {"fields": ("email", "password", "school")}),
         ("Personal info", {"fields": ("name", "surname", "patronymic",)}),
         ("Permissions", {"fields": ("is_admin",)}),
+        ("Active", {"fields": ("is_active",)})
     )
     add_fieldsets = (
         (
@@ -76,11 +77,5 @@ class PermissionAdmin(admin.ModelAdmin):
     fields = ["codename", "name", "content_type"]
 
 
-class SchoolAdminPanel(admin.ModelAdmin):
-    model = SchoolAdmin
-    list_filter = ('request_approved',)
-
-
 admin.site.register(User, UserAdmin)
-admin.site.register(SchoolAdmin, SchoolAdminPanel)
 admin.site.register(Permission, PermissionAdmin)
