@@ -47,7 +47,7 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField(verbose_name="Электронный адрес", max_length=255, unique=True)
+    email = models.EmailField(verbose_name="электронный адрес", max_length=255, unique=True)
     name = models.CharField(max_length=30)
     surname = models.CharField(max_length=30)
     patronymic = models.CharField(max_length=30)
