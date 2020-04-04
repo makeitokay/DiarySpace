@@ -31,7 +31,6 @@ class Schedule(models.Model):
         (4, "Четверг"),
         (5, "Пятница"),
         (6, "Суббота"),
-        (7, "Воскресенье")
     )
 
     day = models.IntegerField(choices=DAYS_CHOICES)
@@ -43,10 +42,17 @@ class Schedule(models.Model):
     grade = models.ForeignKey(Grade, on_delete=models.CASCADE, related_name="schedule")
 
 
+class CallSchedule(models.Model):
+    school = models.ForeignKey(School, on_delete=models.CASCADE, related_name='call_schedule')
+    subject_number = models.PositiveSmallIntegerField()
+    start = models.TimeField(verbose_name='время начала урока')
+    end = models.TimeField(verbose_name='время конца урока')
+
+
 class Announcement(models.Model):
     school = models.ForeignKey(School, on_delete=models.CASCADE, related_name="announcements")
     author = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name="announcements")
     title = models.CharField(max_length=100)
     text = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
-    groups = models.ManyToManyField(Group) # groups of users who can see the announcement
+    groups = models.ManyToManyField(Group)  # groups of users who can see the announcement

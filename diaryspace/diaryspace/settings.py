@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     "django.contrib.flatpages",
     "users.apps.UsersConfig",
-    "schools.apps.SchoolsConfig"
+    "schools.apps.SchoolsConfig",
+    "journal.apps.JournalConfig"
 ]
 
 MIDDLEWARE = [
