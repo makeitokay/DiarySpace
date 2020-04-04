@@ -2,6 +2,7 @@ from django.shortcuts import redirect
 from django.urls import reverse
 from django.views.generic import FormView, TemplateView, RedirectView
 
+from diaryspace.settings import HOME_URLS
 from schools.models import School
 from users.forms import SchoolAdminCreationForm
 from users.models import User
@@ -44,15 +45,11 @@ class SchoolAdminCreationView(FormView):
 
 
 class UserHomeRedirect(RedirectView):
-    HOME_URLS = {
-        'SchoolAdmin': 'announcements',
-    }
-
     def get_redirect_url(self, *args, **kwargs):
         user = self.request.user
         if user.is_admin:
             return '/admin'
-        return reverse(self.HOME_URLS[user.role])
+        return reverse(HOME_URLS[user.role])
 
 
 class IndexView(TemplateView):
