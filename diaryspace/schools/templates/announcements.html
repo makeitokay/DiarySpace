@@ -1,9 +1,37 @@
 {% extends 'system_base.html' %}
-
+{% load user_filters %}
 {% block title %} Объявления {% endblock %}
 
 {% block main %}
 
+    {% if perms.schools.add_announcement %}
+        <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#addAnnouncement">
+            Новое объявление
+        </button>
+    {% endif %}
 
+    <div class="modal fade" id="addAnnouncement" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addAnnouncementLabel">Новое объявление</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <form method="post" action="{% url 'announcements' %}">
+                    {% csrf_token %}
+                    <div class="m-2">
+                        {{ form.title|normalize_placeholder_input }}
+                        {{ form.text|normalize_placeholder_input }}
+                        {{ form.groups }}
+                    </div>
+                    <button type="submit">Создать</button>
+                </form>
+            </div>
+        </div>
+    </div>
 
+    {% for announcement in announcements %}
+        <h3>{{ announcement.title }}</h3>
+        <p>{{ announcement.text }}</p>
+    {% endfor %}
 {% endblock %}
