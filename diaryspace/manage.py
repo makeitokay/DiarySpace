@@ -4,6 +4,7 @@ import os
 import sys
 
 
+# TODO: создать команду, которая создаст все группы и разрешения (permissions) пользователей
 def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'diaryspace.settings')
     try:
