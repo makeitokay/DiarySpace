@@ -1,6 +1,5 @@
-from django.shortcuts import redirect
-from django.views import View
-from django.views.generic import FormView
+from django.urls import reverse
+from django.views.generic import FormView, TemplateView, RedirectView
 
 from schools.models import School
 from users.forms import SchoolAdminCreationForm
@@ -43,11 +42,15 @@ class SchoolAdminCreationView(FormView):
         return super().form_valid(form)
 
 
-class RedirectView(View):
-    def get(self, request):
-        user = request.user
+class UserHomeRedirect(RedirectView):
+    HOME_URLS = {
+        'SchoolAdmin': 'announcements',
+    }
+
+    def get_redirect_url(self, *args, **kwargs):
+        user = self.request.user
         if user.is_admin:
-            return redirect('/admin')
-        role = user.role
-        if role == 'SchoolAdmin':
-            return redirect('announcements')
+            return '/admin'
+        return reverse(self.HOME_URLS[user.role])
+
+# class IndexView(TemplateView):
