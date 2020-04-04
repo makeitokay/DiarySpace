@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.views.generic import FormView, TemplateView, RedirectView
@@ -44,7 +45,7 @@ class SchoolAdminCreationView(FormView):
         return super().form_valid(form)
 
 
-class UserHomeRedirect(RedirectView):
+class UserHomeRedirect(LoginRequiredMixin, RedirectView):
     def get_redirect_url(self, *args, **kwargs):
         user = self.request.user
         if user.is_admin:
