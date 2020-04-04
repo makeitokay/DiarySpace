@@ -1,3 +1,4 @@
+from django.shortcuts import redirect
 from django.urls import reverse
 from django.views.generic import FormView, TemplateView, RedirectView
 
@@ -53,4 +54,11 @@ class UserHomeRedirect(RedirectView):
             return '/admin'
         return reverse(self.HOME_URLS[user.role])
 
-# class IndexView(TemplateView):
+
+class IndexView(TemplateView):
+    template_name = 'index.html'
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('home')
+        return super().get(request, *args, **kwargs)

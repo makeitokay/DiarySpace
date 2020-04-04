@@ -14,13 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.contrib.flatpages import views
 from django.urls import path, include
 
-from users.views import UserHomeRedirect
+from users.views import UserHomeRedirect, IndexView
 
 urlpatterns = [
-    path("", views.flatpage, {"url": ""}, name="index"),
+    path("", IndexView.as_view(), name="index"),
     path('home/', UserHomeRedirect.as_view(), name='home'),
     path('admin/', admin.site.urls),
     path("auth/", include("users.urls")),
