@@ -5,6 +5,11 @@ from users.models import User
 
 
 class Lesson(models.Model):
+    class Meta:
+        permissions = (
+            ('view_diary', 'Can view student diary'),
+        )
+
     school = models.ForeignKey(School, on_delete=models.CASCADE, related_name='lessons')
     subject = models.ForeignKey(Schedule, on_delete=models.SET_NULL, null=True, related_name='lessons')
     grade = models.ForeignKey(Grade, on_delete=models.SET_NULL, null=True, related_name='lessons')
@@ -15,6 +20,11 @@ class Lesson(models.Model):
 
 
 class Mark(models.Model):
+    class Meta:
+        permissions = (
+            ('view_reports', 'Can view student reports'),
+        )
+
     school = models.ForeignKey(School, on_delete=models.CASCADE, related_name='marks')
     lesson = models.ForeignKey(Lesson, on_delete=models.SET_NULL, null=True, related_name='marks')
     student = models.ForeignKey(User, on_delete=models.CASCADE, related_name='marks')
