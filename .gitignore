@@ -133,3 +133,8 @@ dmypy.json
 
 # Migrations
 **/migrations
+
+# Django generated static files
+diaryspace/staticfiles
+
+diaryspace/node_modules
