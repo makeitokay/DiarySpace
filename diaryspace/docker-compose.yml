@@ -1,11 +1,13 @@
+# Compose image for testing.
+# It is completely separate from your host file system, so all dependencies 
+# such as node_modules and staticfiles are prepared automatically.
+
 version: '3.7'
 
 services:
   web:
     build: .
     command: /diaryspace/run.sh
-    volumes:
-      - .:/diaryspace
     ports:
       - 8000:8000
     depends_on:

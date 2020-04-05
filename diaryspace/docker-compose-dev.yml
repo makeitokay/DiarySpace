@@ -1,0 +1,33 @@
+# Compose image for development purposes.
+# All changes inside /diaryspace will be synchronized to your host file system.
+# You have to prepare all dependencies manually, such as preparing Yarn with its modules 
+# and running `python manage.py collectstatic` to prepare static files.
+# It is required since the project directory is mounted to /diaryspace,
+# and we expect it to be ready to run the server.
+
+version: '3.7'
+
+services:
+  web:
+    build: .
+    command: /diaryspace/run.sh
+    volumes:
+      - .:/diaryspace
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+    links:
+      - db:db
+  db:
+    image: postgres:11
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    ports:
+      - 5432:5432
+
+volumes:
+  postgres_data:
