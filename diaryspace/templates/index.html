@@ -9,6 +9,13 @@
 
 {% block body %}
     <body class="text-center">
+
+    <div class="background"></div>
+    <script src="{% static 'js/dynamic-background.js' %}"></script>
+    <script>
+        dynamicBackgroundSetup(".background", "{% static 'images/index-backgrounds/' %}", 3, 20);
+    </script>
+
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
         <header class="masthead mb-auto">
             <div class="inner">
@@ -33,7 +40,7 @@
 
         <footer class="mastfoot mt-auto">
             <div class="inner">
-                <p>Если вы ученик, родитель или учитель, <a href="{% url 'login' %}">войдите</a></p>
+                <p class="font-weight-bold">Если вы ученик, родитель или учитель, <a href="{% url 'login' %}">войдите</a></p>
             </div>
         </footer>
     </div>
