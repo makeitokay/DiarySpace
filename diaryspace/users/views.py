@@ -50,7 +50,7 @@ class UserHomeRedirect(LoginRequiredMixin, RedirectView):
         user = self.request.user
         if user.is_admin:
             return '/admin'
-        return reverse(HOME_URLS[user.role])
+        return reverse(HOME_URLS[user.group.name])
 
 
 class IndexView(TemplateView):

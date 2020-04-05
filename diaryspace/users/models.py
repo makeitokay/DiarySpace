@@ -71,9 +71,9 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.is_admin
 
     @property
-    def role(self):
+    def group(self):
         if self.groups.exists():
-            return self.groups.first().name
+            return self.groups.first()
         return None
 
 

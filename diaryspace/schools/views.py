@@ -15,8 +15,7 @@ class AnnouncementsView(LoginRequiredMixin, FormMixin, ListView):
     success_url = 'announcements'
 
     def get_queryset(self):
-        group = Group.objects.get(name=self.request.user.role)
-        return group.announcement_set.order_by('-date_created')
+        return self.request.user.group.announcement_set.order_by('-date_created')
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
