@@ -77,11 +77,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         return None
 
 
-class ApprovedSchoolAdminManager(models.Manager):
-    def get_approved(self):
-        return super().get_queryset().filter(request_approved=True)
-
-
 class Parent(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
