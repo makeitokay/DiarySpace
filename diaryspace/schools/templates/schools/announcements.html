@@ -11,7 +11,7 @@
 
 {% block main %}
     {% if perms.schools.add_announcement %}
-        <button type="button" class="btn btn-outline-secondary mt-2 mb-3" data-toggle="modal" data-target="#addAnnouncement">
+        <button type="button" class="btn btn-outline-secondary mt-2 mb-4" data-toggle="modal" data-target="#addAnnouncement">
             Новое объявление
         </button>
     {% endif %}
@@ -38,7 +38,18 @@
     </div>
 
     {% for announcement in announcements %}
-        <h3>{{ announcement.title }}</h3>
-        <p>{{ announcement.text }}</p>
+        <div class="card mb-3 announcement">
+            <div class="card-body">
+                <h3 class="card-title">{{ announcement.title }}</h3>
+                {% if announcement.author %}
+                    <h6 class="card-subtitle mb-2 text-muted">
+                        {% with author=announcement.author %}
+                            {{ author.surname }} {{ author.name }} {{ author.patronymic }}, {{ announcement.date_created }}
+                        {% endwith %}
+                    </h6>
+                {% endif %}
+                <p class="card-text mt-4">{{ announcement.text }}</p>
+            </div>
+        </div>
     {% endfor %}
 {% endblock %}

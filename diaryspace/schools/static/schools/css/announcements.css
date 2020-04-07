@@ -22,3 +22,7 @@ textarea[name=text] {
 .custom-control-label {
     line-height: 175%;
 }
+
+.announcement {
+    box-shadow: 0 0px 10px #0000001c;
+}
