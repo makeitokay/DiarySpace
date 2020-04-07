@@ -14,30 +14,19 @@ class SchoolAdminCreationView(FormView):
     form_class = SchoolAdminCreationForm
     success_url = "/"
 
-    def form_invalid(self, form):
-        for error in form.errors:
-            print(error)
-
-        return super().form_invalid(form)
-
     def form_valid(self, form):
-        region = form.cleaned_data["region"]
-        city = form.cleaned_data["city"]
-        school_name = form.cleaned_data["school"]
-        school = School.objects.create(region=region, city=city, school=school_name)
-
-        email = form.cleaned_data["email"]
-        password = form.cleaned_data["password"]
-        name = form.cleaned_data["name"]
-        surname = form.cleaned_data["surname"]
-        patronymic = form.cleaned_data["patronymic"]
+        school = School.objects.create(
+            region=form.cleaned_data["region"],
+            city=form.cleaned_data["city"],
+            school=form.cleaned_data["school"]
+        )
 
         User.objects.create_school_admin(
-            email=email,
-            password=password,
-            name=name,
-            surname=surname,
-            patronymic=patronymic,
+            email=form.cleaned_data["email"],
+            password=form.cleaned_data["password"],
+            name=form.cleaned_data["name"],
+            surname=form.cleaned_data["surname"],
+            patronymic=form.cleaned_data["patronymic"],
             school_id=school.id,
         )
         form.send_registration_mail()
