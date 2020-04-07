@@ -1,0 +1,24 @@
+.page-title {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn.create-announcement {
+    float: right;
+}
+
+input[name=title] {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+textarea[name=text] {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-top: none;
+    margin-bottom: 1rem;
+}
+
+.custom-control-label {
+    line-height: 175%;
+}

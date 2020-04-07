@@ -1,11 +1,17 @@
 {% extends 'system_base.html' %}
+{% load static %}
 {% load user_filters %}
+
 {% block title %} Объявления {% endblock %}
 
-{% block main %}
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'schools/css/announcements.css' %}">
+{% endblock %}
 
+{% block main %}
     {% if perms.schools.add_announcement %}
-        <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#addAnnouncement">
+        <button type="button" class="btn btn-outline-secondary mt-2 mb-3" data-toggle="modal" data-target="#addAnnouncement">
             Новое объявление
         </button>
     {% endif %}
@@ -17,14 +23,15 @@
                     <h5 class="modal-title" id="addAnnouncementLabel">Новое объявление</h5>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
-                <form method="post" action="{% url 'announcements' %}">
+                <form method="post" action="{% url 'announcements' %}" class="m-3">
                     {% csrf_token %}
-                    <div class="m-2">
+                    <div>
                         {{ form.title|normalize_placeholder_input }}
                         {{ form.text|normalize_placeholder_input }}
+                        <div class="my-2">Объявления для групп пользователей:</div>
                         {{ form.groups }}
                     </div>
-                    <button type="submit">Создать</button>
+                    <button class="btn btn-outline-primary create-announcement" type="submit">Создать</button>
                 </form>
             </div>
         </div>

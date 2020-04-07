@@ -9,7 +9,7 @@ from schools.models import Announcement
 
 
 class AnnouncementsView(LoginRequiredMixin, FormMixin, ListView):
-    template_name = 'announcements.html'
+    template_name = 'schools/announcements.html'
     form_class = AnnouncementForm
     context_object_name = 'announcements'
     success_url = 'announcements'

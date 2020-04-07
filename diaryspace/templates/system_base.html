@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
-
 {% load static %}
+
 {% block css %}
-    <link rel="stylesheet" href="{% static 'css/system.css' %}"> {% endblock %}
+    <link rel="stylesheet" href="{% static 'css/system.css' %}">
+{% endblock %}
 
 {% block body %}
-
     <body>
     <nav class="navbar navbar-dark fixed-top flex-md-nowrap p-0 shadow">
         <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="{% url 'home' %}">
@@ -201,14 +201,13 @@
             </nav>
 
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">{% block title %} {% endblock %}</h1>
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-4 pb-2 mb-3 border-bottom">
+                    <h1 class="page-title h2 m-0">{% block title %}{% endblock %}</h1>
                 </div>
-                {% block main %} {% endblock %}
+                {% block main %}{% endblock %}
             </main>
         </div>
     </div>
-
     </body>
 
 {% endblock %}
