@@ -32,6 +32,7 @@ body {
 
 .sidebar-sticky svg {
     margin-bottom: 2px;
+    transition: color 0.1s linear;
 }
 
 @supports ((position: -webkit-sticky) or (position: sticky)) {
@@ -64,6 +65,14 @@ body {
 .sidebar-heading {
     font-size: .75rem;
     text-transform: uppercase;
+}
+
+li.nav-item {
+    transition: margin-left 0.2s ease;
+}
+
+li.nav-item:hover {
+    margin-left: 1px;
 }
 
 
