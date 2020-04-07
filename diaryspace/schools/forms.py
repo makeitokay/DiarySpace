@@ -27,3 +27,10 @@ class AnnouncementForm(forms.ModelForm):
         model = Announcement
         fields = ('title', 'text', 'groups',)
         widgets = {'text': forms.Textarea(), 'groups': forms.CheckboxSelectMultiple()}
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['groups'].queryset = self.fields['groups'].queryset.exclude(name='SchoolAdmin')
+        self.fields['groups'].initial = self.fields['groups'].queryset.values_list('id', flat=True)
+        self.fields['groups'].required = False

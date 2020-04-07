@@ -5,7 +5,7 @@ from django.views.generic import ListView
 from django.views.generic.edit import FormMixin
 
 from schools.forms import AnnouncementForm
-from schools.models import Announcement
+from users import groups
 
 
 class AnnouncementsView(LoginRequiredMixin, FormMixin, ListView):
@@ -27,6 +27,8 @@ class AnnouncementsView(LoginRequiredMixin, FormMixin, ListView):
 
             for group in form.cleaned_data['groups']:
                 announcement.groups.add(group)
+            school_admin_group = Group.objects.get(name=groups.SCHOOL_ADMIN)
+            announcement.groups.add(school_admin_group)
             announcement.save()
 
             return redirect(self.get_success_url())
