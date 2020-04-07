@@ -3,7 +3,7 @@ from django.shortcuts import redirect
 from django.urls import reverse
 from django.views.generic import FormView, TemplateView, RedirectView
 
-from diaryspace.settings import HOME_URLS
+from users import groups
 from schools.models import School
 from users.forms import SchoolAdminCreationForm
 from users.models import User
@@ -39,7 +39,7 @@ class UserHomeRedirect(LoginRequiredMixin, RedirectView):
         user = self.request.user
         if user.is_admin:
             return '/admin'
-        return reverse(HOME_URLS[user.group.name])
+        return reverse(groups.HOME_URLS[user.group.name])
 
 
 class IndexView(TemplateView):

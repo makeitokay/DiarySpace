@@ -127,10 +127,6 @@ LOGIN_URL = "/auth/login/"
 LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "/"
 
-HOME_URLS = {
-    'SchoolAdmin': 'announcements'
-}
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 

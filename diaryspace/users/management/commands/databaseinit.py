@@ -2,12 +2,14 @@ from django.contrib.auth.models import Group, Permission
 from django.core.exceptions import ImproperlyConfigured
 from django.core.management.base import BaseCommand
 
+from users import groups
+
 
 class Command(BaseCommand):
     help = 'Creates groups of users (SchoolAdmin, Teacher, Student, Parent) and permissions for them'
 
     PERMISSIONS = {
-        'SchoolAdmin': {
+        groups.SCHOOL_ADMIN: {
             'lesson': ['view', 'change', 'add', 'delete'],
             'mark': ['view', 'change', 'add', 'delete'],
             'announcement': ['view', 'change', 'add', 'delete'],
@@ -20,17 +22,17 @@ class Command(BaseCommand):
             'student': ['view', 'change', 'add', 'delete'],
             'teacher': ['view', 'change', 'add', 'delete']
         },
-        'Teacher': {
+        groups.TEACHER: {
             'lesson': ['view', 'change', 'add'],
             'mark': ['view', 'change', 'add'],
             'announcement': ['view', 'change', 'add'],
         },
-        'Parent': {
+        groups.PARENT: {
             'diary': ['view'],
             'reports': ['view'],
             'announcement': ['view']
         },
-        'Student': {
+        groups.STUDENT: {
             'diary': ['view'],
             'reports': ['view'],
             'announcement': ['view']
