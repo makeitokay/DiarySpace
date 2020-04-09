@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "schools.apps.SchoolsConfig",
     "journal.apps.JournalConfig",
     "rest_framework",
+    "crispy_forms"
 ]
 
 MIDDLEWARE = [
@@ -168,3 +169,6 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     ]
 }
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+CRISPY_FAIL_SILENTLY = not DEBUG

@@ -8,14 +8,10 @@
 }
 
 input[name=title] {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+    margin-bottom: .5rem;
 }
 
 textarea[name=text] {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    border-top: none;
     margin-bottom: 1rem;
 }
 
@@ -40,4 +36,8 @@ textarea[name=text] {
 
 .mute-button:hover {
     stroke: black;
+}
+
+form {
+    margin: 1rem;
 }
