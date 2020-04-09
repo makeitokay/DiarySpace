@@ -6,6 +6,7 @@ from django.contrib.auth.models import (
     Group,
 )
 from schools.models import School, Grade, Subject
+from users import groups
 
 
 class UserManager(BaseUserManager):
@@ -39,7 +40,7 @@ class UserManager(BaseUserManager):
             self, email, password, name, surname, patronymic, school_id
     ):
         user = self.create_user(email, password, school_id, name, surname, patronymic, False)
-        group = Group.objects.get(name="SchoolAdmin")
+        group = Group.objects.get(name=groups.SCHOOL_ADMIN)
         user.groups.add(group)
         user.save(using=self._db)
 

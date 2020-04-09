@@ -31,6 +31,6 @@ class AnnouncementForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.fields['groups'].queryset = self.fields['groups'].queryset.exclude(name='SchoolAdmin')
+        self.fields['groups'].queryset = self.fields['groups'].queryset.exclude(name=groups.SCHOOL_ADMIN)
         self.fields['groups'].initial = self.fields['groups'].queryset.values_list('id', flat=True)
         self.fields['groups'].required = False
