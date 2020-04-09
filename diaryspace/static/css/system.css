@@ -30,9 +30,24 @@ body {
     overflow-y: auto;
 }
 
-.sidebar-sticky svg {
+.sidebar-sticky svg, .sidebar-sticky img {
     margin-bottom: 2px;
     transition: color 0.1s linear;
+}
+
+.sidebar .nav-link img {
+    /* #999 */
+    filter: invert(65%) sepia(0%) saturate(27%) hue-rotate(135deg) brightness(97%) contrast(77%);
+}
+
+.sidebar .nav-item:hover img {
+    /* black */
+    filter: none;
+}
+
+.sidebar .nav-link.active img {
+    /* #007bff */
+    filter: invert(31%) sepia(100%) saturate(2822%) hue-rotate(200deg) brightness(103%) contrast(106%);
 }
 
 @supports ((position: -webkit-sticky) or (position: sticky)) {
