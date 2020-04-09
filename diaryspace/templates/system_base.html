@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load user_tags %}
 
 {% block css %}
     <link rel="stylesheet" href="{% static 'css/system.css' %}">
@@ -71,7 +72,8 @@
                         {% endif %}
                     </ul>
 
-                    {% if can_user_manage_school %}
+                    {% can_manage_school perms as can_manage_school %}
+                    {% if can_manage_school %}
                         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                             <span>Управление школой</span>
                         </h6>
@@ -150,7 +152,8 @@
                         {% endif %}
                     </ul>
 
-                    {% if can_user_manage_users %}
+                    {% can_manage_users perms as can_manage_users %}
+                    {% if can_manage_users %}
                         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                             <span>Пользователи</span>
                         </h6>

@@ -5,6 +5,8 @@ from django.contrib.auth.models import (
     PermissionsMixin,
     Group,
 )
+from django.utils.functional import cached_property
+
 from schools.models import School, Grade, Subject
 from users import groups
 
@@ -71,11 +73,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     def is_staff(self):
         return self.is_admin
 
-    @property
+    @cached_property
     def group(self):
-        if self.groups.exists():
-            return self.groups.first()
-        return None
+        return self.groups.first()
 
 
 class Parent(models.Model):
