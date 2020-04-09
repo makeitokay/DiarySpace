@@ -26,3 +26,18 @@ textarea[name=text] {
 .announcement {
     box-shadow: 0 0px 10px #0000001c;
 }
+
+.announcement-delete {
+    position: absolute;
+    top: 22px;
+    right: 22px;
+}
+
+.mute-button {
+    stroke: #999;
+    transition: stroke 0.1s linear;
+}
+
+.mute-button:hover {
+    stroke: black;
+}
