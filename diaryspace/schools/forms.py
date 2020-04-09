@@ -1,9 +1,10 @@
 from django import forms
 from crispy_forms.helper import FormHelper, Layout
-from crispy_forms.layout import Div, Field, HTML, Button
+from crispy_forms.layout import Div, Field, HTML
 
 from schools.models import Announcement
 from users import groups
+from .crispyforms_layouts import SubclassCustomizableSubmit
 
 
 class AnnouncementForm(forms.ModelForm):
@@ -16,10 +17,9 @@ class AnnouncementForm(forms.ModelForm):
             Div(HTML("Объявления для групп пользователей:"), css_class="my-2"),
             Field("groups"),
         ),
-        Button(
+        SubclassCustomizableSubmit(
             "submit",
             "Создать",
-            type="submit",
             css_class="btn-outline-primary create-announcement"
         ),
     )
