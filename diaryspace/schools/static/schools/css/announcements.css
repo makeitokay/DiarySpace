@@ -32,6 +32,7 @@ textarea[name=text] {
 .mute-button {
     filter: invert(65%) sepia(0%) saturate(27%) hue-rotate(135deg) brightness(97%) contrast(77%);
     transition: filter 0.1s linear;
+    cursor: pointer;
 }
 
 .mute-button:hover {
