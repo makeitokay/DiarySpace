@@ -3,9 +3,10 @@ from django.contrib.auth.models import Group
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView, UpdateView
 
 from schools.forms import AnnouncementForm
+from schools.models import Announcement
 from users import groups
 
 
@@ -34,8 +35,15 @@ class AnnouncementAddView(LoginRequiredMixin, FormView):
         announcement.author = self.request.user
         announcement.save()
 
-        # School admin can view all announcements, so we add him by default.
-        for group in form.cleaned_data["groups"] | Group.objects.filter(name=groups.SCHOOL_ADMIN):
-            announcement.groups.add(group)
+        # We can call `save_m2m` after `form.save(commit=False)`
+        form.save_m2m()
+        form.add_school_admin()
 
         return super().form_valid(form)
+
+
+class AnnouncementEditView(LoginRequiredMixin, UpdateView):
+    template_name = 'schools/announcement_edit.html'
+    form_class = AnnouncementForm
+    success_url = reverse_lazy("announcements")
+    model = Announcement

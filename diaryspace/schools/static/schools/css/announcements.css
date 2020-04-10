@@ -34,6 +34,12 @@ textarea[name=text] {
     margin-bottom: 1px;
 }
 
+.announcement-change {
+    position: absolute;
+    top: 22px;
+    right: 44px;
+}
+
 .mute-button {
     filter: invert(65%) sepia(0%) saturate(27%) hue-rotate(135deg) brightness(97%) contrast(77%);
     transition: filter 0.1s linear;
