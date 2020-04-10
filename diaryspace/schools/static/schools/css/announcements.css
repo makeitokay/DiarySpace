@@ -23,10 +23,15 @@ textarea[name=text] {
     box-shadow: 0 0px 10px #0000001c;
 }
 
+.announcement .card-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    word-break: break-all;
+}
+
 .announcement-delete {
-    position: absolute;
-    top: 22px;
-    right: 22px;
+    margin-bottom: 1px;
 }
 
 .mute-button {

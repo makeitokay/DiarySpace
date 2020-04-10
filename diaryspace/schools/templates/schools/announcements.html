@@ -24,7 +24,14 @@
     {% for announcement in announcements %}
         <div class="card mb-3 announcement">
             <div class="card-body">
-                <h3 class="card-title">{{ announcement.title }}</h3>
+                <h3 class="card-title">
+                    {{ announcement.title }}
+                    {% if perms.schools.delete_announcement %}
+                        <img src="{% static 'images/icons/trash.svg' %}"
+                             alt="" title="Удалить объявление" announcement-id="{{ announcement.id }}"
+                            class="announcement-delete mute-button" onclick="deleteAnnouncement(this)">
+                    {% endif %}
+                </h3>
                 {% if announcement.author %}
                     <h6 class="card-subtitle mb-2 text-muted">
                         {% with author=announcement.author %}
@@ -33,11 +40,6 @@
                     </h6>
                 {% endif %}
                 <p class="card-text mt-4">{{ announcement.text }}</p>
-                {% if perms.schools.delete_announcement %}
-                    <img src="{% static 'images/icons/trash.svg' %}"
-                         alt="" title="Удалить объявление" announcement-id="{{ announcement.id }}"
-                         class="announcement-delete mute-button" onclick="deleteAnnouncement(this)">
-                {% endif %}
             </div>
         </div>
     {% endfor %}
