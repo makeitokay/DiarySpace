@@ -26,11 +26,18 @@
             <div class="card-body">
                 <h3 class="card-title">
                     {{ announcement.title }}
-                    {% if perms.schools.delete_announcement %}
-                        <img src="{% static 'images/icons/trash.svg' %}"
-                             alt="" title="Удалить объявление" announcement-id="{{ announcement.id }}"
-                            class="announcement-delete mute-button" onclick="deleteAnnouncement(this)">
-                    {% endif %}
+                    <div class="announcement-buttons">
+                        {% if perms.schools.change_announcement %}
+                            <a href="{% url 'announcement-edit' announcement.id %}" class="announcement-button">
+                                <img src="{% static 'images/icons/pencil.svg' %}" alt="">
+                            </a>
+                        {% endif %}
+                        {% if perms.schools.delete_announcement %}
+                            <img src="{% static 'images/icons/trash.svg' %}"
+                                alt="" title="Удалить объявление" announcement-id="{{ announcement.id }}"
+                                class="announcement-button" onclick="deleteAnnouncement(this)">
+                        {% endif %}
+                    </div>
                 </h3>
                 {% if announcement.author %}
                     <h6 class="card-subtitle mb-2 text-muted">
@@ -40,16 +47,6 @@
                     </h6>
                 {% endif %}
                 <p class="card-text mt-4">{{ announcement.text }}</p>
-                {% if perms.schools.change_announcement %}
-                    <a href="{% url 'announcement-edit' announcement.id %}" class="announcement-change mute-button">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon></svg>
-                    </a>
-                {% endif %}
-                {% if perms.schools.delete_announcement %}
-                    <img src="{% static 'images/icons/trash.svg' %}"
-                         alt="" title="Удалить объявление" announcement-id="{{ announcement.id }}"
-                         class="announcement-delete mute-button" onclick="deleteAnnouncement(this)">
-                {% endif %}
             </div>
         </div>
     {% endfor %}
