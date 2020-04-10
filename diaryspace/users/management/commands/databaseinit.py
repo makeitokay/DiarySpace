@@ -6,7 +6,7 @@ from users import groups
 
 
 class Command(BaseCommand):
-    help = 'Creates groups of users (SchoolAdmin, Teacher, Student, Parent) and permissions for them'
+    help = 'Creates groups of users (School admin, Teacher, Student, Parent) and permissions for them'
 
     PERMISSIONS = {
         groups.SCHOOL_ADMIN: {
