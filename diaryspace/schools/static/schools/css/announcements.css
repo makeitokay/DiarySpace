@@ -30,12 +30,12 @@ textarea[name=text] {
 }
 
 .mute-button {
-    stroke: #999;
-    transition: stroke 0.1s linear;
+    filter: invert(65%) sepia(0%) saturate(27%) hue-rotate(135deg) brightness(97%) contrast(77%);
+    transition: filter 0.1s linear;
 }
 
 .mute-button:hover {
-    stroke: black;
+    filter: none;
 }
 
 form {
