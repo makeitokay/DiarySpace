@@ -8,7 +8,7 @@ from users import groups
 class Command(BaseCommand):
     help = 'Creates groups of users (School admin, Teacher, Student, Parent) and permissions for them'
 
-    PERMISSIONS = {
+    _PERMISSIONS = {
         groups.SCHOOL_ADMIN: {
             'lesson': ['view', 'change', 'add', 'delete'],
             'mark': ['view', 'change', 'add', 'delete'],
@@ -39,8 +39,30 @@ class Command(BaseCommand):
         }
     }
 
+    # TODO: возможно, использовать встроенный в Django перевод?
+    _PERMISSION_INTO_RUSSIAN = {
+        'can': 'может',
+        'view': 'смотреть',
+        'change': 'изменять',
+        'add': 'добавлять',
+        'delete': 'удалять',
+        'lesson': 'уроки',
+        'mark': 'оценки',
+        'announcement': 'объявления',
+        'schedule': 'расписание',
+        'grade': 'классы',
+        'call schedule': 'расписание звонков',
+        'school': 'информацию о школе',
+        'subject': 'предметы',
+        'parent': 'родителей',
+        'student': 'учеников',
+        'teacher': 'учителей',
+        'student diary': 'дневник',
+        'student reports': 'отчёты'
+    }
+
     def handle(self, *args, **options):
-        for group_name, permissions in self.PERMISSIONS.items():
+        for group_name, permissions in self._PERMISSIONS.items():
             group, created = Group.objects.get_or_create(name=group_name)
             if created is True:
                 print(f'Group `{group_name}` ✓')
@@ -55,6 +77,12 @@ class Command(BaseCommand):
                             ' Maybe, you should run `python manage.py makemigrations && python manage.py migrate`'
                             ' before using `databaseinit`?'
                         )
+                    name = permission.name.lower()
+                    if 'может' not in name:
+                        words = name.split(permission_name)
+                        words.insert(1, permission_name)
+                        permission.name = ' '.join([self._PERMISSION_INTO_RUSSIAN[w.strip()] for w in words]).capitalize()
+                        permission.save()
                     if group.permissions.filter(codename=codename).exists():
                         continue
                     print(f'{group_name}: `{codename}` ✓')
