@@ -50,7 +50,6 @@ class CallSchedule(models.Model):
 
 
 class Announcement(models.Model):
-    school = models.ForeignKey(School, on_delete=models.CASCADE, related_name="announcements")
     author = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name="announcements")
     title = models.CharField(max_length=100)
     text = models.TextField()

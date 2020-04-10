@@ -16,23 +16,10 @@
 {% endblock %}
 
 {% block main %}
-    {% if perms.schools.add_announcement %}
-        <button type="button" class="btn btn-outline-secondary mt-2 mb-4" data-toggle="modal" data-target="#addAnnouncement">
-            Новое объявление
-        </button>
-    {% endif %}
 
-    <div class="modal fade" id="addAnnouncement" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addAnnouncementLabel">Новое объявление</h5>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                {% crispy form %}
-            </div>
-        </div>
-    </div>
+    {% if perms.schools.add_announcement %}
+    <a href="{% url 'announcement-add' %}" class="btn btn-outline-secondary mt-2 mb-4">Новое объявление</a>
+    {% endif %}
 
     {% for announcement in announcements %}
         <div class="card mb-3 announcement">
