@@ -40,8 +40,12 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     "django.contrib.flatpages",
     "debug_toolbar",
-    "users.apps.UsersConfig",
+    'index.apps.IndexConfig',
+    "diaryspace_auth",
     "schools.apps.SchoolsConfig",
+    "users.apps.UsersConfig",
+    "announcements.apps.AnnouncementsConfig",
+    'messenger.apps.MessengerConfig',
     "journal.apps.JournalConfig",
     "rest_framework",
     "crispy_forms"
@@ -119,7 +123,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = 'diaryspace_auth.User'
 
 LOGIN_URL = "/auth/login/"
 LOGIN_REDIRECT_URL = "home"

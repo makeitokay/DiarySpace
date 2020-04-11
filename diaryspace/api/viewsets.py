@@ -1,8 +1,8 @@
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.mixins import ListModelMixin, DestroyModelMixin
 
-from schools.models import Announcement
-from .serializers import AnnouncementSerializer
+from announcements.models import Announcement
+from api.serializers import AnnouncementSerializer
 
 
 class AnnouncementViewSet(GenericViewSet, ListModelMixin, DestroyModelMixin):

@@ -1,7 +1,7 @@
 from django.db import models
 
 from schools.models import Schedule, School, Grade
-from users.models import User
+from diaryspace_auth.models import User
 
 
 class Lesson(models.Model):

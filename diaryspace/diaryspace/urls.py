@@ -18,16 +18,17 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from users.views import UserHomeRedirect, IndexView
+from diaryspace_auth.views import UserHomeRedirect
 
 urlpatterns = [
-    path("", IndexView.as_view(), name="index"),
+    path("", include('index.urls')),
     path('home/', UserHomeRedirect.as_view(), name='home'),
     path('admin/', admin.site.urls),
-    path("auth/", include("users.urls")),
+    path("auth/", include("diaryspace_auth.urls")),
     path("auth/", include("django.contrib.auth.urls")),
     path("api/", include("api.urls")),
     path("", include("schools.urls")),
+    path("", include("announcements.urls")),
 ]
 
 if settings.DEBUG:

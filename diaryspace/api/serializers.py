@@ -1,6 +1,6 @@
 from rest_framework.serializers import ModelSerializer
 
-from schools.models import Announcement
+from announcements.models import Announcement
 
 
 class AnnouncementSerializer(ModelSerializer):

@@ -3,9 +3,9 @@ from crispy_forms.helper import FormHelper, Layout
 from crispy_forms.layout import Div, Field, HTML
 from django.contrib.auth.models import Group
 
-from schools.models import Announcement
-from users import groups
-from .crispyforms_layouts import SubclassCustomizableSubmit
+from announcements.models import Announcement
+from diaryspace_auth import groups
+from announcements.crispyforms_layouts import SubclassCustomizableSubmit
 
 
 class AnnouncementForm(forms.ModelForm):

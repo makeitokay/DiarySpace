@@ -7,17 +7,17 @@
 
 {% block css %}
     {{ block.super }}
-    <link rel="stylesheet" href="{% static 'schools/css/announcements.css' %}">
+    <link rel="stylesheet" href="{% static 'announcements/css/announcements.css' %}">
 {% endblock %}
 
 {% block js %}
-    <script src="{% static 'schools/js/announcements.js' %}"></script>
+    <script src="{% static 'announcements/js/announcements.js' %}"></script>
     <script src="{% static 'js-cookie/src/js.cookie.js' %}"></script>
 {% endblock %}
 
 {% block main %}
 
-    {% if perms.schools.add_announcement %}
+    {% if perms.announcements.add_announcement %}
     <a href="{% url 'announcement-add' %}" class="btn btn-outline-secondary mt-2 mb-4">Новое объявление</a>
     {% endif %}
 
@@ -27,13 +27,13 @@
                 <h3 class="card-title">
                     {{ announcement.title }}
                     <div class="announcement-buttons">
-                        {% if perms.schools.change_announcement and announcement.author == user %}
+                        {% if perms.announcements.change_announcement and announcement.author == user %}
                             <a href="{% url 'announcement-edit' announcement.id %}" class="announcement-button">
                                 <img src="{% static 'images/icons/pencil.svg' %}"
                                      alt="" title="Редактировать объявление">
                             </a>
                         {% endif %}
-                        {% if perms.schools.delete_announcement %}
+                        {% if perms.announcements.delete_announcement %}
                             <img src="{% static 'images/icons/trash.svg' %}"
                                 alt="" title="Удалить объявление" announcement-id="{{ announcement.id }}"
                                 class="announcement-button" onclick="deleteAnnouncement(this)">
