@@ -27,9 +27,10 @@
                 <h3 class="card-title">
                     {{ announcement.title }}
                     <div class="announcement-buttons">
-                        {% if perms.schools.change_announcement %}
+                        {% if perms.schools.change_announcement and announcement.author == user %}
                             <a href="{% url 'announcement-edit' announcement.id %}" class="announcement-button">
-                                <img src="{% static 'images/icons/pencil.svg' %}" alt="">
+                                <img src="{% static 'images/icons/pencil.svg' %}"
+                                     alt="" title="Редактировать объявление">
                             </a>
                         {% endif %}
                         {% if perms.schools.delete_announcement %}
