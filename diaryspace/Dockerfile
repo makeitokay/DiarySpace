@@ -1,5 +1,5 @@
 # Pull base image
-FROM python:3.8
+FROM python:3.8-alpine
 
 # Set work directory
 WORKDIR /diaryspace
@@ -11,7 +11,10 @@ ENV PYTHONDONTWRITEBYTECODE 1
 # !!!: if you intend to use docker-compose-dev.yml.
 
 # Install npm & Yarn
-RUN apt update && apt install -y npm && npm install -g yarn
+RUN apk add --no-cache npm && npm install -g yarn
+
+# Install PostgreSQL libs
+RUN apk add --no-cache gcc musl-dev postgresql-dev
 
 # Copy Python dependency descriptions
 COPY Pipfile Pipfile.lock ./
