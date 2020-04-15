@@ -2,7 +2,7 @@ from django import forms
 from django.core.mail import send_mail
 from django.contrib.auth.password_validation import validate_password
 
-from users.models import User
+from diaryspace_auth.models import User
 
 
 class SchoolAdminCreationForm(forms.Form):

@@ -65,7 +65,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     patronymic = models.CharField(max_length=30)
 
     school = models.ForeignKey(
-        School, on_delete=models.CASCADE, related_name="users", null=True, default=None
+        'schools.School', on_delete=models.CASCADE, related_name="users", null=True, default=None
     )
 
     is_active = models.BooleanField(default=True)

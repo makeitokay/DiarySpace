@@ -1,7 +1,5 @@
+from django.conf import settings
 from django.db import models
-
-from schools.models import Schedule, School, Grade
-from diaryspace_auth.models import User
 
 
 class Lesson(models.Model):
@@ -10,9 +8,9 @@ class Lesson(models.Model):
             ('view_diary', 'Can view student diary'),
         )
 
-    school = models.ForeignKey(School, on_delete=models.CASCADE, related_name='lessons')
-    subject = models.ForeignKey(Schedule, on_delete=models.SET_NULL, null=True, related_name='lessons')
-    grade = models.ForeignKey(Grade, on_delete=models.SET_NULL, null=True, related_name='lessons')
+    school = models.ForeignKey('schools.School', on_delete=models.CASCADE, related_name='lessons')
+    subject = models.ForeignKey('schools.Schedule', on_delete=models.SET_NULL, null=True, related_name='lessons')
+    grade = models.ForeignKey('schools.Grade', on_delete=models.SET_NULL, null=True, related_name='lessons')
 
     date = models.DateField(verbose_name='дата урока')
     theme = models.TextField(verbose_name='тема')
@@ -25,9 +23,9 @@ class Mark(models.Model):
             ('view_reports', 'Can view student reports'),
         )
 
-    school = models.ForeignKey(School, on_delete=models.CASCADE, related_name='marks')
-    lesson = models.ForeignKey(Lesson, on_delete=models.SET_NULL, null=True, related_name='marks')
-    student = models.ForeignKey(User, on_delete=models.CASCADE, related_name='marks')
+    school = models.ForeignKey('schools.School', on_delete=models.CASCADE, related_name='marks')
+    lesson = models.ForeignKey('Lesson', on_delete=models.SET_NULL, null=True, related_name='marks')
+    student = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='marks')
 
     ATTENDANCE_CHOICES = (
         ('УП', 'Уважительная причина'),
