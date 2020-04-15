@@ -132,7 +132,8 @@ dmypy.json
 .idea
 
 # Migrations
-**/migrations
+**/migrations/*
+!**/migrations/__init__.py
 
 # Django generated static files
 diaryspace/staticfiles
