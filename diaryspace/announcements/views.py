@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.http import HttpResponseNotFound
 from django.urls import reverse_lazy
 from django.views.generic import ListView
@@ -6,9 +6,10 @@ from django.views.generic.edit import FormView, UpdateView
 
 from announcements.forms import AnnouncementForm
 from announcements.models import Announcement
+from diaryspace_auth.mixins import SystemLoginRequiredMixin
 
 
-class AnnouncementsView(LoginRequiredMixin, ListView):
+class AnnouncementsView(SystemLoginRequiredMixin, ListView):
     template_name = "announcements/announcements.html"
     context_object_name = "announcements"
 
@@ -25,7 +26,7 @@ class AnnouncementsView(LoginRequiredMixin, ListView):
         )
 
 
-class AnnouncementAddView(LoginRequiredMixin, PermissionRequiredMixin, FormView):
+class AnnouncementAddView(SystemLoginRequiredMixin, PermissionRequiredMixin, FormView):
     template_name = "announcements/announcement_add.html"
     form_class = AnnouncementForm
     success_url = reverse_lazy("announcements")
@@ -43,7 +44,7 @@ class AnnouncementAddView(LoginRequiredMixin, PermissionRequiredMixin, FormView)
         return super().form_valid(form)
 
 
-class AnnouncementEditView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+class AnnouncementEditView(SystemLoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     template_name = 'announcements/announcement_edit.html'
     form_class = AnnouncementForm
     success_url = reverse_lazy("announcements")
