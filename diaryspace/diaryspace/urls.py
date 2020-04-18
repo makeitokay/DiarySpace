@@ -29,6 +29,7 @@ urlpatterns = [
     path("api/", include("api.urls")),
     path("", include("schools.urls")),
     path("", include("announcements.urls")),
+    path("users/", include('users.urls')),
 ]
 
 if settings.DEBUG:

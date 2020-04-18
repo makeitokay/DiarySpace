@@ -1,0 +1,11 @@
+{% extends 'system_base.html' %}
+
+{% block title %} Учителя {% endblock %}
+
+{% block main %}
+
+    {% for teacher in teachers %}
+        {{ teacher.surname }} {{ teacher.name }} {{ teacher.patronymic }}
+    {% endfor %}
+
+{% endblock %}
