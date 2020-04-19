@@ -8,7 +8,6 @@ from django.contrib.auth.models import (
 from django.utils.functional import cached_property
 
 from schools.models import School, Grade, Subject
-from diaryspace_auth import groups
 
 
 class UserManager(BaseUserManager):
@@ -21,6 +20,7 @@ class UserManager(BaseUserManager):
         surname="",
         patronymic="",
         is_active=True,
+        group_name=None
     ):
         if email is None:
             raise ValueError("Email is a required field")
@@ -37,6 +37,9 @@ class UserManager(BaseUserManager):
         )
         user.set_password(password)
         user.save(using=self._db)
+        if group_name is not None:
+            group = Group.objects.get(name=group_name)
+            user.groups.add(group)
 
         return user
 
@@ -45,13 +48,6 @@ class UserManager(BaseUserManager):
         user.is_admin = True
         user.is_superuser = True
         user.save(using=self._db)
-
-        return user
-
-    def create_school_admin(self, **kwargs):
-        user = self.create_user(**kwargs, is_active=False)
-        group = Group.objects.get(name=groups.SCHOOL_ADMIN)
-        user.groups.add(group)
 
         return user
 

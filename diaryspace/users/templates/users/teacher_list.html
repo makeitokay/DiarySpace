@@ -4,8 +4,12 @@
 
 {% block main %}
 
+    <a class="btn btn-outline-secondary" href="{% url 'teacher-add' %}">
+        Добавить учителя
+    </a>
+
     {% for teacher in teachers %}
-        {{ teacher.surname }} {{ teacher.name }} {{ teacher.patronymic }}
+        <p>{{ teacher.user.surname }} {{ teacher.user.name }} {{ teacher.user.patronymic }}</p>
     {% endfor %}
 
 {% endblock %}
