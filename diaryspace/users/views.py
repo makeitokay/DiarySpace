@@ -9,23 +9,16 @@ from users.forms import TeacherAddForm
 from users.models import Teacher
 
 
-class TeacherListView(SystemLoginRequiredMixin, PermissionRequiredMixin, ListView):
-    template_name = 'users/teacher_list.html'
-    context_object_name = 'teachers'
-    permission_required = 'users.view_teacher'
-
+class UserListView(SystemLoginRequiredMixin, PermissionRequiredMixin, ListView):
     def get_queryset(self):
         school = self.request.user.school
-        return Teacher.objects.filter(user__school=school).select_related('user').all()
+        return self.model.objects.filter(user__school=school).select_related('user').all()
 
 
-class TeacherAddView(SystemLoginRequiredMixin, PermissionRequiredMixin, FormView):
-    template_name = 'users/teacher_add.html'
-    permission_required = 'users.add_teacher'
-    form_class = TeacherAddForm
-    success_url = reverse_lazy('teachers')
+class UserAddView(SystemLoginRequiredMixin, PermissionRequiredMixin, FormView):
+    group_name = None
 
-    def form_valid(self, form):
+    def create_user(self, form):
         random_password = User.objects.make_random_password()
         user = User.objects.create_user(
             email=form.cleaned_data['email'],
@@ -34,8 +27,32 @@ class TeacherAddView(SystemLoginRequiredMixin, PermissionRequiredMixin, FormView
             name=form.cleaned_data['name'],
             surname=form.cleaned_data['surname'],
             patronymic=form.cleaned_data['patronymic'],
-            group_name=groups.TEACHER
+            group_name=self.group_name
         )
+        return user
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({"school_id": self.request.user.school_id})
+        return kwargs
+
+
+class TeacherListView(UserListView):
+    template_name = 'users/teacher_list.html'
+    context_object_name = 'teachers'
+    permission_required = 'users.view_teacher'
+    model = Teacher
+
+
+class TeacherAddView(UserAddView):
+    template_name = 'users/teacher_add.html'
+    permission_required = 'users.add_teacher'
+    form_class = TeacherAddForm
+    success_url = reverse_lazy('teachers')
+    group_name = groups.TEACHER
+
+    def form_valid(self, form):
+        user = self.create_user(form)
 
         teacher = Teacher.objects.create(
             user=user,
@@ -45,9 +62,3 @@ class TeacherAddView(SystemLoginRequiredMixin, PermissionRequiredMixin, FormView
             teacher.subjects.add(subject)
 
         return super().form_valid(form)
-
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        # Add school id to form to get subjects choices
-        kwargs.update({"school_id": self.request.user.school_id})
-        return kwargs
