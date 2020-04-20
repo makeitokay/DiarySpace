@@ -9,7 +9,7 @@
     </a>
 
     {% for teacher in teachers %}
-        <p>{{ teacher.user.surname }} {{ teacher.user.name }} {{ teacher.user.patronymic }}</p>
+        <p>{{ teacher.user.fullname }}</p>
     {% endfor %}
 
 {% endblock %}

@@ -43,7 +43,7 @@
                 {% if announcement.author %}
                     <h6 class="card-subtitle mb-2 text-muted">
                         {% with author=announcement.author %}
-                            {{ author.surname }} {{ author.name }} {{ author.patronymic }}, {{ announcement.date_created }}
+                            {{ author.fullname }}, {{ announcement.date_created }}
                         {% endwith %}
                     </h6>
                 {% endif %}

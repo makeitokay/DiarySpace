@@ -75,6 +75,10 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.email
 
     @property
+    def fullname(self):
+        return " ".join([self.surname, self.name, self.patronymic])
+
+    @property
     def is_staff(self):
         return self.is_admin
 
