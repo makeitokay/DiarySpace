@@ -1,17 +1,17 @@
 from django import template
 
 _MANAGE_SCHOOL_PERMISSIONS = (
-    'schools.change_school',
-    'schools.change_schedule',
-    'schools.change_callschedule',
-    'schools.change_grade',
-    'schools.change_subject'
+    "schools.change_school",
+    "schools.change_schedule",
+    "schools.change_callschedule",
+    "schools.change_grade",
+    "schools.change_subject",
 )
 
 _MANAGE_USERS_PERMISSIONS = (
-    'users.add_parent',
-    'users.add_student',
-    'users.add_teacher'
+    "users.add_parent",
+    "users.add_student",
+    "users.add_teacher",
 )
 
 register = template.Library()

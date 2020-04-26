@@ -1,12 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.urls import reverse
-from django.views.generic import FormView, TemplateView, RedirectView
+from django.views.generic import FormView, RedirectView, TemplateView
 
 from diaryspace_auth import groups
-from schools.models import School
 from diaryspace_auth.forms import SchoolAdminCreationForm
 from diaryspace_auth.models import User
+from schools.models import School
 
 
 class SchoolAdminCreationView(FormView):
@@ -18,7 +18,7 @@ class SchoolAdminCreationView(FormView):
         school = School.objects.create(
             region=form.cleaned_data["region"],
             city=form.cleaned_data["city"],
-            school=form.cleaned_data["school"]
+            school=form.cleaned_data["school"],
         )
 
         User.objects.create_school_admin(
@@ -38,5 +38,5 @@ class UserHomeRedirect(LoginRequiredMixin, RedirectView):
     def get_redirect_url(self, *args, **kwargs):
         user = self.request.user
         if user.is_admin:
-            return '/admin'
+            return "/admin"
         return reverse(groups.HOME_URLS[user.group.name])

@@ -1,5 +1,4 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.http import HttpResponseNotFound
 from django.urls import reverse_lazy
 from django.views.generic import ListView
 from django.views.generic.edit import FormView, UpdateView
@@ -15,14 +14,10 @@ class AnnouncementsView(SystemLoginRequiredMixin, ListView):
 
     def get_queryset(self):
         user = self.request.user
-        school = user.school
-        if school is None:
-            return HttpResponseNotFound()
         return (
-            user.group.announcement_set
-                .filter(author__school=school)
-                .order_by("-date_created")
-                .select_related("author")
+            user.group.announcement_set.filter(author__school=user.school)
+            .order_by("-date_created")
+            .select_related("author")
         )
 
 
@@ -30,7 +25,7 @@ class AnnouncementAddView(SystemLoginRequiredMixin, PermissionRequiredMixin, For
     template_name = "announcements/announcement_add.html"
     form_class = AnnouncementForm
     success_url = reverse_lazy("announcements")
-    permission_required = 'announcements.add_announcement'
+    permission_required = "announcements.add_announcement"
 
     def form_valid(self, form):
         announcement = form.save(commit=False)
@@ -44,12 +39,16 @@ class AnnouncementAddView(SystemLoginRequiredMixin, PermissionRequiredMixin, For
         return super().form_valid(form)
 
 
-class AnnouncementEditView(SystemLoginRequiredMixin, PermissionRequiredMixin, UpdateView):
-    template_name = 'announcements/announcement_edit.html'
+class AnnouncementEditView(
+    SystemLoginRequiredMixin, PermissionRequiredMixin, UpdateView
+):
+    template_name = "announcements/announcement_edit.html"
     form_class = AnnouncementForm
     success_url = reverse_lazy("announcements")
     model = Announcement
-    permission_required = 'announcements.change_announcement'
+    permission_required = "announcements.change_announcement"
 
     def has_permission(self):
-        return super().has_permission() and self.get_object().author == self.request.user
+        return (
+            super().has_permission() and self.get_object().author == self.request.user
+        )

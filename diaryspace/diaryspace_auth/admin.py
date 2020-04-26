@@ -1,7 +1,7 @@
-from django.contrib import admin
-from django.contrib.auth.models import Permission
-from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django import forms
+from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.contrib.auth.models import Permission
 
 from .models import User
 
@@ -50,7 +50,7 @@ class UserAdmin(BaseUserAdmin):
         (None, {"fields": ("email", "password", "school")}),
         ("Personal info", {"fields": ("name", "surname", "patronymic",)}),
         ("Permissions", {"fields": ("is_admin",)}),
-        ("Active", {"fields": ("is_active",)})
+        ("Active", {"fields": ("is_active",)}),
     )
     add_fieldsets = (
         (

@@ -12,13 +12,17 @@ class School(models.Model):
 
 
 class Grade(models.Model):
-    school = models.ForeignKey('School', on_delete=models.CASCADE, related_name="grades")
+    school = models.ForeignKey(
+        "School", on_delete=models.CASCADE, related_name="grades"
+    )
     number = models.PositiveSmallIntegerField()
     letter = models.CharField(max_length=1)
 
 
 class Subject(models.Model):
-    school = models.ForeignKey('School', on_delete=models.CASCADE, related_name="subjects")
+    school = models.ForeignKey(
+        "School", on_delete=models.CASCADE, related_name="subjects"
+    )
     name = models.CharField(max_length=50)
 
 
@@ -34,15 +38,26 @@ class Schedule(models.Model):
 
     day = models.IntegerField(choices=DAYS_CHOICES)
     subject_number = models.PositiveSmallIntegerField()
-    subject = models.ForeignKey('Subject', on_delete=models.CASCADE)
+    subject = models.ForeignKey("Subject", on_delete=models.CASCADE)
 
-    school = models.ForeignKey('School', on_delete=models.CASCADE, related_name="schedule")
-    teacher = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name="schedule")
-    grade = models.ForeignKey('Grade', on_delete=models.CASCADE, related_name="schedule")
+    school = models.ForeignKey(
+        "School", on_delete=models.CASCADE, related_name="schedule"
+    )
+    teacher = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name="schedule",
+    )
+    grade = models.ForeignKey(
+        "Grade", on_delete=models.CASCADE, related_name="schedule"
+    )
 
 
 class CallSchedule(models.Model):
-    school = models.ForeignKey('School', on_delete=models.CASCADE, related_name='call_schedule')
+    school = models.ForeignKey(
+        "School", on_delete=models.CASCADE, related_name="call_schedule"
+    )
     subject_number = models.PositiveSmallIntegerField()
-    start = models.TimeField(verbose_name='время начала урока')
-    end = models.TimeField(verbose_name='время конца урока')
+    start = models.TimeField(verbose_name="время начала урока")
+    end = models.TimeField(verbose_name="время конца урока")

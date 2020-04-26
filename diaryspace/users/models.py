@@ -9,10 +9,10 @@ class Parent(models.Model):
 class Student(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     grade = models.ForeignKey(
-        'schools.Grade', on_delete=models.SET_NULL, null=True, related_name="students"
+        "schools.Grade", on_delete=models.SET_NULL, null=True, related_name="students"
     )
     parent = models.ForeignKey(
-        'users.Parent', on_delete=models.SET_NULL, null=True, related_name="children"
+        "users.Parent", on_delete=models.SET_NULL, null=True, related_name="children"
     )
 
     def __str__(self):
@@ -22,9 +22,12 @@ class Student(models.Model):
 class Teacher(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     homeroom_grade = models.OneToOneField(
-        'schools.Grade', on_delete=models.SET_NULL, null=True, related_name="homeroom_teacher"
+        "schools.Grade",
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name="homeroom_teacher",
     )
-    subjects = models.ManyToManyField('schools.Subject')
+    subjects = models.ManyToManyField("schools.Subject")
 
     def __str__(self):
         return self.user.email

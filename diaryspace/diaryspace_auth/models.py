@@ -1,13 +1,13 @@
-from django.db import models
 from django.contrib.auth.models import (
-    BaseUserManager,
     AbstractBaseUser,
-    PermissionsMixin,
+    BaseUserManager,
     Group,
+    PermissionsMixin,
 )
+from django.db import models
 from django.utils.functional import cached_property
 
-from schools.models import School, Grade, Subject
+from schools.models import Grade, School, Subject
 
 
 class UserManager(BaseUserManager):
@@ -20,7 +20,7 @@ class UserManager(BaseUserManager):
         surname="",
         patronymic="",
         is_active=True,
-        group_name=None
+        group_name=None,
     ):
         if email is None:
             raise ValueError("Email is a required field")
@@ -61,7 +61,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     patronymic = models.CharField(max_length=30)
 
     school = models.ForeignKey(
-        'schools.School', on_delete=models.CASCADE, related_name="users", null=True, default=None
+        "schools.School",
+        on_delete=models.CASCADE,
+        related_name="users",
+        null=True,
+        default=None,
     )
 
     is_active = models.BooleanField(default=True)

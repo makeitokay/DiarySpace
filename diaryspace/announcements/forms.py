@@ -1,28 +1,36 @@
-from django import forms
 from crispy_forms.helper import FormHelper, Layout
-from crispy_forms.layout import Div, Field, HTML
+from crispy_forms.layout import HTML, Div, Field
+from django import forms
 from django.contrib.auth.models import Group
 
+from announcements.crispyforms_layouts import SubclassCustomizableSubmit
 from announcements.models import Announcement
 from diaryspace_auth import groups
-from announcements.crispyforms_layouts import SubclassCustomizableSubmit
 
 
 class AnnouncementForm(forms.ModelForm):
     class Meta:
         model = Announcement
-        fields = ('title', 'text', 'groups',)
-        widgets = {'text': forms.Textarea(), 'groups': forms.CheckboxSelectMultiple()}
+        fields = (
+            "title",
+            "text",
+            "groups",
+        )
+        widgets = {"text": forms.Textarea(), "groups": forms.CheckboxSelectMultiple()}
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.fields['groups'].queryset = self.fields['groups'].queryset.exclude(name=groups.SCHOOL_ADMIN)
-        self.fields['groups'].required = False
+        self.fields["groups"].queryset = self.fields["groups"].queryset.exclude(
+            name=groups.SCHOOL_ADMIN
+        )
+        self.fields["groups"].required = False
 
         submit_button_text = "Создать"
-        if kwargs.get('instance') is None:
-            self.fields['groups'].initial = self.fields['groups'].queryset.values_list('id', flat=True)
+        if kwargs.get("instance") is None:
+            self.fields["groups"].initial = self.fields["groups"].queryset.values_list(
+                "id", flat=True
+            )
         else:
             submit_button_text = "Изменить"
 
@@ -38,7 +46,7 @@ class AnnouncementForm(forms.ModelForm):
             SubclassCustomizableSubmit(
                 "submit",
                 submit_button_text,
-                css_class="btn-outline-primary create-announcement"
+                css_class="btn-outline-primary create-announcement",
             ),
         )
 

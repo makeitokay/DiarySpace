@@ -1,5 +1,5 @@
+from rest_framework.mixins import DestroyModelMixin, ListModelMixin
 from rest_framework.viewsets import GenericViewSet
-from rest_framework.mixins import ListModelMixin, DestroyModelMixin
 
 from announcements.models import Announcement
 from api.serializers import AnnouncementSerializer
