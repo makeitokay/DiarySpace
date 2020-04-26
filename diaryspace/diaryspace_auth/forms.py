@@ -11,6 +11,12 @@ class UserCreateForm(forms.Form):
     patronymic = forms.CharField(max_length=30, label="Отчество")
     email = forms.EmailField(label="Адрес электронной почты")
 
+    def __init__(self, *args, **kwargs):
+        self.school_id = None
+        if 'school_id' in kwargs:
+            self.school_id = kwargs.pop('school_id')
+        super().__init__(*args, **kwargs)
+
     def clean_email(self):
         try:
             user = User.objects.get(email=self.cleaned_data["email"])

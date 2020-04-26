@@ -1,0 +1,15 @@
+{% extends 'system_base.html' %}
+
+{% block title %} Родители {% endblock %}
+
+{% block main %}
+
+    <a class="btn btn-outline-secondary" href="{% url 'parent-add' %}">
+        Добавить родителя
+    </a>
+
+    {% for parent in parents %}
+        <p>{{ parent.user.fullname }}</p>
+    {% endfor %}
+
+{% endblock %}

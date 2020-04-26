@@ -3,10 +3,11 @@ from django.urls import reverse_lazy
 from django.views.generic import FormView, ListView
 
 from diaryspace_auth import groups
+from diaryspace_auth.forms import UserCreateForm
 from diaryspace_auth.mixins import SystemLoginRequiredMixin
 from diaryspace_auth.models import User
 from users.forms import TeacherAddForm
-from users.models import Teacher
+from users.models import Teacher, Parent
 
 
 class UserListView(SystemLoginRequiredMixin, PermissionRequiredMixin, ListView):
@@ -61,5 +62,26 @@ class TeacherAddView(UserAddView):
         )
         for subject in form.cleaned_data["subjects"]:
             teacher.subjects.add(subject)
+
+        return super().form_valid(form)
+
+
+class ParentListView(UserListView):
+    template_name = "users/parent_list.html"
+    context_object_name = 'parents'
+    permission_required = 'users.view_parent'
+    model = Parent
+
+
+class ParentAddView(UserAddView):
+    template_name = 'users/parent_add.html'
+    permission_required = 'users.add_parent'
+    form_class = UserCreateForm
+    success_url = reverse_lazy('parents')
+    group_name = groups.PARENT
+
+    def form_valid(self, form):
+        user = self.create_user(form)
+        Parent.objects.create(user=user)
 
         return super().form_valid(form)
