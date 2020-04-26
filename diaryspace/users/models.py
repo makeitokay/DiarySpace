@@ -5,6 +5,9 @@ from django.db import models
 class Parent(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return str(self.user)
+
 
 class Student(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -16,7 +19,7 @@ class Student(models.Model):
     )
 
     def __str__(self):
-        return self.user.email
+        return str(self.user)
 
 
 class Teacher(models.Model):
@@ -30,4 +33,4 @@ class Teacher(models.Model):
     subjects = models.ManyToManyField("schools.Subject")
 
     def __str__(self):
-        return self.user.email
+        return str(self.user)

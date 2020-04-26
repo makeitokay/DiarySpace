@@ -1,0 +1,15 @@
+{% extends 'system_base.html' %}
+
+{% block title %} Ученики {% endblock %}
+
+{% block main %}
+
+    <a class="btn btn-outline-secondary" href="{% url 'student-add' %}">
+        Добавить ученика
+    </a>
+
+    {% for student in students %}
+        <p>{{ student.user.fullname }}</p>
+    {% endfor %}
+
+{% endblock %}

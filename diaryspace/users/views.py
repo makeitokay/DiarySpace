@@ -6,8 +6,8 @@ from diaryspace_auth import groups
 from diaryspace_auth.forms import UserCreateForm
 from diaryspace_auth.mixins import SystemLoginRequiredMixin
 from diaryspace_auth.models import User
-from users.forms import TeacherAddForm
-from users.models import Teacher, Parent
+from users.forms import TeacherAddForm, StudentAddForm
+from users.models import Teacher, Parent, Student
 
 
 class UserListView(SystemLoginRequiredMixin, PermissionRequiredMixin, ListView):
@@ -68,20 +68,46 @@ class TeacherAddView(UserAddView):
 
 class ParentListView(UserListView):
     template_name = "users/parent_list.html"
-    context_object_name = 'parents'
-    permission_required = 'users.view_parent'
+    context_object_name = "parents"
+    permission_required = "users.view_parent"
     model = Parent
 
 
 class ParentAddView(UserAddView):
-    template_name = 'users/parent_add.html'
-    permission_required = 'users.add_parent'
+    template_name = "users/parent_add.html"
+    permission_required = "users.add_parent"
     form_class = UserCreateForm
-    success_url = reverse_lazy('parents')
+    success_url = reverse_lazy("parents")
     group_name = groups.PARENT
 
     def form_valid(self, form):
         user = self.create_user(form)
         Parent.objects.create(user=user)
+
+        return super().form_valid(form)
+
+
+class StudentListView(UserListView):
+    template_name = "users/student_list.html"
+    context_object_name = "students"
+    permission_required = "users.view_student"
+    model = Student
+
+
+class StudentAddView(UserAddView):
+    template_name = "users/student_add.html"
+    permission_required = "users.add_student"
+    form_class = StudentAddForm
+    success_url = reverse_lazy("students")
+    group_name = groups.STUDENT
+
+    def form_valid(self, form):
+        user = self.create_user(form)
+
+        student = Student.objects.create(
+            user=user,
+            parent=form.cleaned_data["parent"],
+            grade=form.cleaned_data["grade"],
+        )
 
         return super().form_valid(form)

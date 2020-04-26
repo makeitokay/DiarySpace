@@ -13,8 +13,8 @@ class UserCreateForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         self.school_id = None
-        if 'school_id' in kwargs:
-            self.school_id = kwargs.pop('school_id')
+        if "school_id" in kwargs:
+            self.school_id = kwargs.pop("school_id")
         super().__init__(*args, **kwargs)
 
     def clean_email(self):

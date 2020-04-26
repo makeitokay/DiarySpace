@@ -122,7 +122,7 @@
                         {% endif %}
                         {% if perms.users.add_student %}
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link" href="{% url 'students' %}">
                                     <img class="feather" src="{% static 'images/icons/person.svg' %}" alt="">
                                     Ученики
                                 </a>

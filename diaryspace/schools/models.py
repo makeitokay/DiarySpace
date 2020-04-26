@@ -18,6 +18,9 @@ class Grade(models.Model):
     number = models.PositiveSmallIntegerField()
     letter = models.CharField(max_length=1)
 
+    def __str__(self):
+        return f"{self.number} «{self.letter}»"
+
 
 class Subject(models.Model):
     school = models.ForeignKey(

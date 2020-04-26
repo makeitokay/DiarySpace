@@ -1,0 +1,11 @@
+{% extends 'system_base.html' %}
+
+{% block title %} Добавить ученика {% endblock %}
+
+{% block main %}
+    <form action="{% url 'student-add' %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-outline-primary">Добавить</button>
+    </form>
+{% endblock %}
